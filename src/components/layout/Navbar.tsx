@@ -1,57 +1,130 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart, User, LogOut, Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="relative bg-white">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="text-xl font-bold text-gray-800">
-              E-Commerce
+          {/* Left side - Menu icon and Logo */}
+          <div className="flex items-center gap-x-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={toggleMenu}
+            >
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+            <Link
+              to="/"
+              className="font-anton text-2xl font-bold tracking-wider text-black"
+            >
+              Shop.co
             </Link>
+            {/* Desktop Navigation */}
+            <div className="hidden items-center space-x-6 md:flex">
+              <Link to="/" className="text-gray-600 hover:text-gray-800">
+                Home
+              </Link>
+              <Link to="/about" className="text-gray-600 hover:text-gray-800">
+                About
+              </Link>
+              <Link to="/contact" className="text-gray-600 hover:text-gray-800">
+                Contact
+              </Link>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <Link to="/" className="text-gray-600 hover:text-gray-800">
-              Home
-            </Link>
+          {/* Right side - Auth buttons or user menu */}
+          <div className="flex items-center gap-x-4">
             {user ? (
               <>
-                <span className="text-gray-600">
-                  {user.firstName} {user.lastName}
-                </span>
-                <Link to="/cart" className="text-gray-600 hover:text-gray-800">
-                  My Cart
+                <Link to="/cart" className="relative">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                  </Button>
                 </Link>
-                <Link to="/about" className="text-gray-600 hover:text-gray-800">
-                  About
-                </Link>
-                <Link
-                  to="/contact"
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  Contact
-                </Link>
-                <button
+                <div className="flex items-center gap-x-2">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-gray-600 hover:text-gray-800"
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                  <span className="hidden text-gray-600 md:inline">
+                    {user.firstName} {user.lastName}
+                  </span>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
                   onClick={logout}
                   className="text-gray-600 hover:text-gray-800"
                 >
-                  Logout
-                </button>
+                  <LogOut className="h-5 w-5" />
+                </Button>
               </>
             ) : (
-              <Link
-                to="/register"
-                className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-              >
-                Register
-              </Link>
+              <div className="flex items-center gap-x-2">
+                <Link to="/auth/login">
+                  <Button variant="ghost">Login</Button>
+                </Link>
+                <Link to="/auth/register">
+                  <Button>Register</Button>
+                </Link>
+              </div>
             )}
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="absolute top-16 right-0 left-0 z-50 bg-white shadow-lg md:hidden">
+            <div className="flex flex-col space-y-4 px-4 py-4">
+              <Link
+                to="/"
+                className="py-2 text-gray-600 hover:text-gray-800"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                to="/about"
+                className="py-2 text-gray-600 hover:text-gray-800"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </Link>
+              <Link
+                to="/contact"
+                className="py-2 text-gray-600 hover:text-gray-800"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
