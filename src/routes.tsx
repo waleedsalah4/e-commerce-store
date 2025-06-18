@@ -5,7 +5,6 @@ import Login from "@/pages/Login";
 import ProductDetails from "@/pages/ProductDetails";
 import Cart from "@/pages/Cart";
 import About from "@/pages/About";
-import Contact from "@/pages/Contact";
 import RootLayout from "@/components/layout/RootLayout";
 import AuthLayout from "@/components/layout/AuthLayout";
 
@@ -29,10 +28,6 @@ export const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
-      },
-      {
-        path: "contact",
-        element: <Contact />,
       },
     ],
   },

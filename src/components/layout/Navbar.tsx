@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { ShoppingCart, User, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 
@@ -44,7 +49,7 @@ const Navbar = () => {
               <Link to="/about" className="text-gray-600 hover:text-gray-800">
                 About
               </Link>
-              <Link to="/contact" className="text-gray-600 hover:text-gray-800">
+              <Link to="/#" className="text-gray-600 hover:text-gray-800">
                 Contact
               </Link>
             </div>
@@ -63,26 +68,33 @@ const Navbar = () => {
                     <ShoppingCart className="h-5 w-5" />
                   </Button>
                 </Link>
-                <div className="flex items-center gap-x-2">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    <User className="h-5 w-5" />
-                  </Button>
-                  <span className="hidden text-gray-600 md:inline">
-                    {user.firstName} {user.lastName}
-                  </span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={logout}
-                  className="text-gray-600 hover:text-gray-800"
-                >
-                  <LogOut className="h-5 w-5" />
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="flex cursor-pointer items-center gap-x-2 text-gray-600 hover:text-gray-800">
+                      <span className="hidden text-sm font-medium md:inline">
+                        {user.firstName}
+                      </span>
+                      <User className="h-5 w-5" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-48 p-0" align="end">
+                    <div className="flex flex-col">
+                      <div className="px-2 py-1.5 text-sm font-medium text-gray-900">
+                        {user.firstName} {user.lastName}
+                      </div>
+                      <div className="my-1 border-t border-gray-200"></div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={logout}
+                        className="justify-start text-gray-600 hover:text-gray-800"
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Logout
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </>
             ) : (
               <div className="flex items-center gap-x-2">
@@ -116,7 +128,7 @@ const Navbar = () => {
                 About
               </Link>
               <Link
-                to="/contact"
+                to="#"
                 className="py-2 text-gray-600 hover:text-gray-800"
                 onClick={() => setIsMenuOpen(false)}
               >
