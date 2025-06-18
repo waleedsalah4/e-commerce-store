@@ -22,8 +22,9 @@ export default function CategoryProductsAccordion({
     <section className="container mx-auto px-4 py-16">
       <h2 className="mb-8 text-start text-3xl font-bold">Product Categories</h2>
       <Accordion
-        type="multiple"
-        defaultValue={categories}
+        type="single"
+        defaultValue={categories[0]}
+        collapsible
         className="w-full border-0"
       >
         {categories.map((category) => (

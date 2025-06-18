@@ -41,7 +41,6 @@ const Home = () => {
   });
 
   const handleAddToCart = (product: Product) => {
-    console.log("clicked");
     addToCart(product);
     toast.success(`${product.title} added to cart`, {
       duration: 3000,

@@ -26,7 +26,7 @@ const HeroSection = () => {
           </div>
 
           <div className="relative">
-            <BigStar className="absolute top-20 right-0 z-50 text-black" />
+            <BigStar className="absolute top-10 right-0 z-50 size-14 text-black md:top-20 md:right-10 md:size-20" />
             <div className="relative aspect-square lg:aspect-auto lg:h-[700px]">
               <img
                 src="/hero.png"
@@ -34,7 +34,7 @@ const HeroSection = () => {
                 className="h-full w-full rounded-2xl object-cover object-right"
               />
             </div>
-            <BigStar className="absolute bottom-50 left-20 z-50 size-14 text-black" />
+            <BigStar className="absolute bottom-30 left-0 z-50 size-10 text-black md:bottom-70 md:left-10 md:size-14" />
           </div>
         </div>
       </div>
