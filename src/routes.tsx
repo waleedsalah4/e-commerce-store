@@ -5,6 +5,7 @@ import Login from "@/pages/Login";
 import ProductDetails from "@/pages/ProductDetails";
 import Cart from "@/pages/Cart";
 import About from "@/pages/About";
+import NotFound from "@/pages/NotFound";
 import RootLayout from "@/components/layout/RootLayout";
 import AuthLayout from "@/components/layout/AuthLayout";
 
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
     ],
   },
   {
@@ -42,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
