@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 const Cart = () => {
   const { cart, removeFromCart, reorderCart, updateQuantity, getTotalPrice } =
     useCart();
+  const { isAuthenticated } = useAuth();
   const [draggedItem, setDraggedItem] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
@@ -51,6 +53,20 @@ const Cart = () => {
     setDragOverIndex(null);
   };
 
+  if (!isAuthenticated) {
+    return (
+      <div className="space-y-8 py-12 text-center">
+        <h2 className="text-2xl font-bold">Please login to view your cart</h2>
+
+        <Link
+          to="/auth/login"
+          className="w-fit cursor-pointer rounded-md bg-black px-6 py-3 text-white transition-colors hover:bg-black/80 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
+        >
+          Login
+        </Link>
+      </div>
+    );
+  }
   if (cart.length === 0) {
     return (
       <div className="space-y-4 py-12 text-center">

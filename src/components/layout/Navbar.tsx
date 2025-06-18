@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,11 +10,16 @@ import { ShoppingCart, User, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -43,13 +48,13 @@ const Navbar = () => {
             </Link>
             {/* Desktop Navigation */}
             <div className="hidden items-center space-x-6 md:flex">
-              <Link to="/" className="text-gray-600 hover:text-gray-800">
+              <Link to="/" className="text-black hover:text-gray-900">
                 Home
               </Link>
-              <Link to="/about" className="text-gray-600 hover:text-gray-800">
+              <Link to="/about" className="text-black hover:text-gray-900">
                 About
               </Link>
-              <Link to="/#" className="text-gray-600 hover:text-gray-800">
+              <Link to="/#" className="text-black hover:text-gray-900">
                 Contact
               </Link>
             </div>
@@ -57,7 +62,7 @@ const Navbar = () => {
 
           {/* Right side - Auth buttons or user menu */}
           <div className="flex items-center gap-x-4">
-            {user ? (
+            {isAuthenticated && user ? (
               <>
                 <Link to="/cart" className="relative">
                   <Button
@@ -86,7 +91,7 @@ const Navbar = () => {
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={logout}
+                        onClick={handleLogout}
                         className="justify-start text-black hover:text-gray-900"
                       >
                         <LogOut className="mr-2 h-4 w-4" />

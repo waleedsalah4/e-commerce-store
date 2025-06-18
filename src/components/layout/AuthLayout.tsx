@@ -7,7 +7,7 @@ export default function AuthLayout() {
       <main className="mx-auto">
         <Outlet />
       </main>
-      <Toaster position="bottom-right" />
+      <Toaster position="top-right" />
     </div>
   );
 }

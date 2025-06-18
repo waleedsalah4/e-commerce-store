@@ -12,8 +12,26 @@ export interface Product {
 }
 
 export interface User {
+  id: string;
   firstName: string;
-  lastName: string;
+  lastName?: string;
   email: string;
   username: string;
-} 
+  password: string;
+  address?: string;
+  createdAt: string;
+}
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface RegisterData {
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  password: string;
+  address?: string;
+}

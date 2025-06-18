@@ -7,14 +7,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { loginSchema, type LoginFormData } from "./authSchema";
+import toast from "react-hot-toast";
 
 export function LoginForm() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormData>({
     defaultValues: {
       email: "",
@@ -24,18 +25,11 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      console.log(data);
-      // In a real application, you would make an API call here
-      login({
-        email: data.email,
-        firstName: "", // These would come from the API response in a real app
-        lastName: "",
-        username: data.email.split("@")[0], // Using email username as a fallback
-      });
+    const result = await login({ email: data.email, password: data.password });
+    if (result.success) {
       navigate("/");
-    } catch (error) {
-      console.error("Login failed:", error);
+    } else {
+      toast.error(`Login failed: ${result.message}`);
     }
   };
 
@@ -69,8 +63,8 @@ export function LoginForm() {
             <p className="text-sm text-red-600">{errors.password.message}</p>
           )}
         </div>
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? "Logging in..." : "Login"}
+        <Button type="submit" className="w-full" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
         </Button>
       </form>
       <div className="text-center text-sm">

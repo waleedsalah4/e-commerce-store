@@ -9,10 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import { registerSchema, type RegisterFormData } from "./authSchema";
+import type { RegisterData } from "@/types";
+import toast from "react-hot-toast";
 
 export function RegisterForm() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { register: RegisterUser, isLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -29,16 +31,14 @@ export function RegisterForm() {
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: RegisterFormData) => {
-    console.log(data);
-    // In a real application, you would make an API call here
-    login({
-      firstName: data.firstName,
-      lastName: data.lastName || "",
-      email: data.email,
-      username: data.username,
-    });
-    navigate("/");
+  const onSubmit = async (data: RegisterFormData) => {
+    const result = await RegisterUser(data as RegisterData);
+
+    if (result.success) {
+      navigate("/");
+    } else {
+      toast.error(`Registration failed: ${result.message}`);
+    }
   };
 
   return (
@@ -94,8 +94,8 @@ export function RegisterForm() {
           <Textarea id="address" {...register("address")} rows={3} />
         </div>
 
-        <Button type="submit" className="w-full">
-          Register
+        <Button type="submit" disabled={isLoading} className="w-full">
+          {isLoading ? "Registering..." : "Register"}
         </Button>
       </div>
       <div className="text-center text-sm">
