@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
-import { useCart } from "@/hooks/useCart";
+
 import HeroSection from "@/components/home/HeroSection";
 import RecentProducts from "@/components/home/RecentProducts";
 import {
@@ -11,8 +10,6 @@ import {
 import CategoryProductsAccordion from "@/components/home/CategoryProductsAccordion";
 
 const Home = () => {
-  const { addToCart } = useCart();
-
   // Fetch categories
   const {
     data: categories = [],
@@ -40,17 +37,9 @@ const Home = () => {
     enabled: categories.length > 0,
   });
 
-  const handleAddToCart = (product: Product) => {
-    addToCart(product);
-    toast.success(`${product.title} added to cart`, {
-      duration: 3000,
-      position: "bottom-right",
-    });
-  };
-
   if (isLoadingCategories || isLoadingProducts) {
     return (
-      <div className="flex h-64 items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-black"></div>
       </div>
     );
@@ -74,14 +63,10 @@ const Home = () => {
       <HeroSection />
       <section className="container mx-auto px-4 py-16">
         <h2 className="mb-8 text-start text-3xl font-bold">Recent Products</h2>
-        <RecentProducts onAddToCart={handleAddToCart} />
+        <RecentProducts />
       </section>
       {/* Categories Section */}
-      <CategoryProductsAccordion
-        categories={categories}
-        products={products}
-        onAddToCart={handleAddToCart}
-      />
+      <CategoryProductsAccordion categories={categories} products={products} />
     </div>
   );
 };

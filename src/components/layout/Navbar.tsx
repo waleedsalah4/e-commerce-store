@@ -79,7 +79,7 @@ const Navbar = () => {
                   </PopoverTrigger>
                   <PopoverContent className="w-48 p-0" align="end">
                     <div className="flex flex-col">
-                      <div className="px-2 py-1.5 text-sm font-medium text-gray-900">
+                      <div className="px-4 py-2 text-sm font-medium text-gray-900">
                         {user.firstName} {user.lastName}
                       </div>
                       <div className="my-1 border-t border-gray-200"></div>
@@ -87,7 +87,7 @@ const Navbar = () => {
                         variant="ghost"
                         size="sm"
                         onClick={logout}
-                        className="justify-start text-gray-600 hover:text-gray-800"
+                        className="justify-start text-black hover:text-gray-900"
                       >
                         <LogOut className="mr-2 h-4 w-4" />
                         Logout

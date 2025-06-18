@@ -1,13 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchRecentProducts } from "@/services/api";
 import { ProductCard } from "@/components/home/ProductCard";
-import type { Product } from "@/types";
 
-interface Props {
-  onAddToCart: (product: Product) => void;
-}
-
-function RecentProducts({ onAddToCart }: Props) {
+function RecentProducts() {
   const {
     data: products = [],
     isLoading,
@@ -48,11 +43,7 @@ function RecentProducts({ onAddToCart }: Props) {
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          product={product}
-          onAddToCart={onAddToCart}
-        />
+        <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );

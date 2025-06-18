@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { Product } from "@/types";
+import toast from "react-hot-toast";
 
 interface CartItem extends Product {
   quantity: number;
@@ -26,6 +27,10 @@ export const useCart = () => {
         );
       }
       return [...prev, { ...product, quantity: 1 }];
+    });
+    toast.success(`${product.title} added to cart`, {
+      duration: 3000,
+      position: "bottom-right",
     });
   };
 

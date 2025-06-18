@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import type { Product } from "@/types";
 import { Eye, Star } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (product: Product) => void;
+  // onAddToCart: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
+  const { addToCart } = useCart();
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, index) => (
       <Star
@@ -39,7 +41,7 @@ export function ProductCard({ product, onAddToCart }: ProductCardProps) {
         </div>
 
         <button
-          onClick={() => onAddToCart(product)}
+          onClick={() => addToCart(product)}
           className="absolute bottom-0 left-0 z-50 w-full translate-y-full cursor-pointer bg-black px-4 py-2 text-white transition-all duration-300 ease-in-out group-hover:translate-y-0 hover:bg-black/90 focus:outline-none"
         >
           Add to Cart
