@@ -8,10 +8,12 @@ import {
 } from "@/components/ui/popover";
 import { ShoppingCart, User, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useCartStore } from "@/store/useCartStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
+  const { getTotalItems } = useCartStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -68,9 +70,12 @@ const Navbar = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-gray-600 hover:text-gray-800"
+                    className="relative text-gray-600 hover:text-gray-800"
                   >
                     <ShoppingCart className="h-5 w-5" />
+                    <span className="absolute top-0 right-0 flex size-4 items-center justify-center rounded-full bg-gray-200 text-xs text-red-950">
+                      {getTotalItems()}
+                    </span>
                   </Button>
                 </Link>
                 <Popover>

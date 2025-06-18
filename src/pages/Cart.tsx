@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useCartStore } from "@/store/useCartStore";
+import toast from "react-hot-toast";
 const Cart = () => {
   const { isAuthenticated, user } = useAuth();
 
@@ -169,6 +170,7 @@ const Cart = () => {
               onClick={() => {
                 if (user) {
                   removeFromCart(item.id, user.id);
+                  toast.success(`product is removed from cart`);
                 }
               }}
               className="absolute top-1 right-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full p-1 text-red-600 transition-colors hover:bg-red-50 hover:text-red-800"

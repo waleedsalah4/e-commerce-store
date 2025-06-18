@@ -15,6 +15,7 @@ interface CartState {
   reorderCart: (newOrder: CartItem[], userId: string) => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
+  isInCart: (productId: number) => boolean;
 }
 
 const getCartKey = (userId: string) => `cart_${userId}`;
@@ -73,4 +74,7 @@ export const useCartStore = create<CartState>((set, get) => ({
 
   getTotalPrice: () =>
     get().cart.reduce((total, item) => total + item.quantity * item.price, 0),
+  isInCart: (productId) => {
+    return get().cart.some((item) => item.id === productId);
+  },
 }));
