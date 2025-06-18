@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useCartStore } from "@/store/useCartStore";
 import type { User, RegisterData, LoginCredentials } from "@/types";
 import toast from "react-hot-toast";
 
@@ -18,6 +19,13 @@ export const useAuth = () => {
       localStorage.removeItem("currentUser");
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user?.id) {
+      const saved = localStorage.getItem(`cart_${user.id}`);
+      useCartStore.getState().setCart(saved ? JSON.parse(saved) : []);
+    }
+  }, [user?.id]);
 
   // Get all users from localStorage
   const getAllUsers = (): User[] => {

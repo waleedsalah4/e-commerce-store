@@ -1,6 +1,6 @@
 # 🛒 E-commerce Assessment Project
 
-A modern React-based e-commerce application built with TypeScript and Vite, featuring simulated authentication and cart management using localStorage.
+An e-commerce application built with TypeScript and Vite, featuring simulated authentication and cart management using localStorage.
 
 ## 🚀 Features
 
@@ -134,13 +134,6 @@ http://localhost:5173
 The application uses localStorage to simulate a backend database:
 
 ```
-
-## 🐛 Known Limitations
-
-- **No Backend**: Authentication and data storage are simulated with localStorage
-- **Basic Security**: No encryption or advanced security measures
-- **Single Device**: Data doesn't sync across devices
-
 localStorage Structure:
 ├── "users"           → Array of all registered users
 ├── "currentUser"     → Currently logged-in user data

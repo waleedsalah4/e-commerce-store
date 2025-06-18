@@ -19,7 +19,7 @@ export default function CategoryProductsAccordion({
   // onAddToCart,
 }: CategoryProductsAccordionProps) {
   return (
-    <section className="container mx-auto px-4 py-16">
+    <section className="container mx-auto px-4 py-16" id="categories">
       <h2 className="mb-8 text-start text-3xl font-bold">Product Categories</h2>
       <Accordion
         type="single"

@@ -17,7 +17,7 @@ const HeroSection = () => {
             </p>
             <div>
               <Link
-                to="#categories"
+                to="#"
                 className="inline-block rounded-full bg-black px-12 py-3 text-lg font-semibold text-white transition-colors hover:bg-gray-800"
               >
                 Shop Now

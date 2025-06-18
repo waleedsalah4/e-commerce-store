@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { useCart } from "@/hooks/useCart";
+// import { useCart } from "@/hooks/useCart";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
+import { useCartStore } from "@/store/useCartStore";
 const Cart = () => {
-  const { cart, removeFromCart, reorderCart, updateQuantity, getTotalPrice } =
-    useCart();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  const {
+    cart,
+    removeFromCart,
+    reorderCart,
+    updateQuantity,
+    getTotalPrice,
+    clearCart,
+  } = useCartStore();
   const [draggedItem, setDraggedItem] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
@@ -43,7 +51,7 @@ const Cart = () => {
       draggedItem < dropIndex ? dropIndex - 1 : dropIndex;
     newCart.splice(adjustedDropIndex, 0, draggedProduct);
 
-    reorderCart(newCart);
+    reorderCart(newCart, user?.id || "");
     setDraggedItem(null);
     setDragOverIndex(null);
   };
@@ -53,7 +61,7 @@ const Cart = () => {
     setDragOverIndex(null);
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !user) {
     return (
       <div className="space-y-8 py-12 text-center">
         <h2 className="text-2xl font-bold">Please login to view your cart</h2>
@@ -86,7 +94,19 @@ const Cart = () => {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8">
-      <h1 className="mb-8 text-3xl font-bold">Shopping Cart</h1>
+      <div className="mb-8 flex items-center justify-between gap-4">
+        <h1 className="text-3xl font-bold">Shopping Cart</h1>
+        <button
+          className="bg-accent-foreground cursor-pointer rounded-md px-6 py-2 text-white"
+          onClick={() => {
+            if (user) {
+              clearCart(user.id);
+            }
+          }}
+        >
+          Clear Cart
+        </button>
+      </div>
       <div className="mb-4 text-sm text-gray-600">
         💡 Drag and drop items to reorder them
       </div>
@@ -124,21 +144,33 @@ const Cart = () => {
             </div>
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                onClick={() => {
+                  if (user) {
+                    updateQuantity(item.id, item.quantity - 1, user.id);
+                  }
+                }}
                 className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
               >
                 -
               </button>
               <span className="w-8 text-center">{item.quantity}</span>
               <button
-                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                onClick={() => {
+                  if (user) {
+                    updateQuantity(item.id, item.quantity + 1, user.id);
+                  }
+                }}
                 className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
               >
                 +
               </button>
             </div>
             <button
-              onClick={() => removeFromCart(item.id)}
+              onClick={() => {
+                if (user) {
+                  removeFromCart(item.id, user.id);
+                }
+              }}
               className="absolute top-1 right-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full p-1 text-red-600 transition-colors hover:bg-red-50 hover:text-red-800"
             >
               ✕
