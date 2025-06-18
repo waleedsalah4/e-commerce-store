@@ -1,54 +1,169 @@
-# React + TypeScript + Vite
+# 🛒 E-commerce Assessment Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React-based e-commerce application built with TypeScript and Vite, featuring simulated authentication and cart management using localStorage.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🔐 Authentication System (Simulated with localStorage)
 
-## Expanding the ESLint configuration
+- **User Registration** - Create new user accounts with validation
+- **User Login** - Secure credential verification
+- **User Logout** - Clear user session
+- **Session Persistence** - User stays logged in after browser refresh
+- **Form Validation** - Email format, password strength, unique usernames
+- **Error Handling** - User-friendly error messages and toast notifications
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+> **Note**: This project simulates a real authentication system using localStorage for educational/assessment purposes. In a production environment, authentication would be handled by a secure backend server.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 🛍️ Shopping Cart Management
+
+- **User-Specific Carts** - Each authenticated user has their own cart
+- **Cart Persistence** - Cart items saved between sessions
+- **Quantity Management** - Add, remove, and update item quantities
+- **Cart Analytics** - Real-time totals and item counts
+- **Guest Restriction** - Only logged-in users can add items to cart
+- **Cart Operations** - Clear cart, reorder items (drag & drop ready)
+
+### 📱 Application Pages
+
+- **🏠 Home Page** - Product showcase and navigation
+- **ℹ️ About Page** - Information about the store
+- **📦 Product Details** - Detailed product information and specifications
+- **🛒 Cart Page** - View and manage cart items
+- **🔑 Login Page** - User authentication
+- **📝 Register Page** - New user account creation
+
+### 🎨 User Experience
+
+- **Responsive Design** - Works on desktop and mobile devices
+- **Loading States** - Visual feedback during operations
+- **Toast Notifications** - Success and error messages
+- **Form Validation** - Real-time input validation
+- **Protected Routes** - Cart functionality requires authentication
+
+## 🛠️ Technical Stack
+
+- **Frontend Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **State Management**: React Hooks (useState, useEffect)
+- **Data Storage**: localStorage (simulating backend)
+- **Notifications**: React Hot Toast
+- **Icons**: Lucide React
+
+## 🐛 Known Limitations
+
+- **No Backend**: Authentication and data storage are simulated with localStorage
+- **Basic Security**: No encryption or advanced security measures
+- **Single Device**: Data doesn't sync across devices
+
+## 📋 Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- **Node.js** (version 20.0 or higher)
+- **npm** package manager
+- **Git** (for cloning the repository)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/waleedsalah4/e-commerce-store
+cd e-commerce-store
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Using npm:
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 3. Start the Development Server
+
+Using npm:
+
+```bash
+npm run dev
+
+```
+
+### 4. Open in Browser
+
+The application will be available at:
+
+```
+http://localhost:5173
+```
+
+## 📚 How to Use
+
+### Registration Process
+
+1. Navigate to the **Register** page
+2. Fill in all required fields:
+   - First Name
+   - Last Name
+   - Username (minimum 3 characters)
+   - Email (valid format required)
+   - Password (minimum 6 characters)
+   - Address (optional)
+3. Click **Register** to create your account
+4. You'll be automatically logged in after successful registration
+
+### Login Process
+
+1. Go to the **Login** page
+2. Enter your registered email and password
+3. Click **Login** to access your account
+4. Your previous cart items will be restored if any exist
+
+### Shopping Experience
+
+1. Browse products on the **Home** page
+2. Click on products to view **Product Details**
+3. **Add items to cart** (requires login)
+4. Manage your cart on the **Cart** page
+5. Adjust quantities or remove items as needed
+
+## 🗃️ Data Storage Structure
+
+The application uses localStorage to simulate a backend database:
+
+```
+
+## 🐛 Known Limitations
+
+- **No Backend**: Authentication and data storage are simulated with localStorage
+- **Basic Security**: No encryption or advanced security measures
+- **Single Device**: Data doesn't sync across devices
+
+localStorage Structure:
+├── "users"           → Array of all registered users
+├── "currentUser"     → Currently logged-in user data
+└── "cart_${userId}"  → Individual user's cart data
+```
+
+## 🔒 Security Notes
+
+- **Password Storage**: In this simulation, passwords are stored in plain text in localStorage. In a real application, passwords would be hashed and stored securely on the server.
+- **Data Validation**: Client-side validation is implemented, but server-side validation would be essential in production.
+- **Session Management**: Real applications would use secure tokens (JWT) and server-side session management.
+
+## 🎯 Assessment Features Demonstrated
+
+- ✅ **Component Architecture** - Modular, reusable components
+- ✅ **Custom Hooks** - Business logic separation
+- ✅ **State Management** - Complex state handling with React hooks
+- ✅ **Form Handling** - Controlled components with validation
+- ✅ **Local Storage** - Client-side data persistence
+- ✅ **TypeScript** - Type safety and better development experience
+- ✅ **Error Handling** - Graceful error management
+- ✅ **User Experience** - Loading states, notifications, responsive design
+
+---
+
+**Note**: This project demonstrates frontend development skills and simulates backend functionality for assessment purposes. In a production environment, proper backend infrastructure, security measures, and database management would be implemented.
