@@ -10,13 +10,11 @@ import type { Product } from "@/types";
 interface CategoryProductsAccordionProps {
   categories: string[];
   products: Record<string, Product[]>;
-  // onAddToCart: (product: Product) => void;
 }
 
 export default function CategoryProductsAccordion({
   categories,
   products,
-  // onAddToCart,
 }: CategoryProductsAccordionProps) {
   return (
     <section className="container mx-auto px-4 py-16" id="categories">
@@ -39,11 +37,7 @@ export default function CategoryProductsAccordion({
             <AccordionContent>
               <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
                 {products[category]?.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    // onAddToCart={onAddToCart}
-                  />
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </div>
             </AccordionContent>

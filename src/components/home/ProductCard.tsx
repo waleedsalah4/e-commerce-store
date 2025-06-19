@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import type { Product } from "@/types";
 import { Eye, Star } from "lucide-react";
-// import { useCart } from "@/hooks/useCart";
 import { useCartStore } from "@/store/useCartStore";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/store/useAuthStore";
 import toast from "react-hot-toast";
 
 interface ProductCardProps {
   product: Product;
-  // onAddToCart: (product: Product) => void;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
   const { user } = useAuth();
+
   const { addToCart } = useCartStore();
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, index) => (

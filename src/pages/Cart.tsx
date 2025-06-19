@@ -1,7 +1,6 @@
 import { useState } from "react";
-// import { useCart } from "@/hooks/useCart";
 import { Link } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/store/useAuthStore";
 import { useCartStore } from "@/store/useCartStore";
 import toast from "react-hot-toast";
 const Cart = () => {

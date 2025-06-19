@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/store/useAuthStore";
+import { useCartStore } from "@/store/useCartStore";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -7,8 +9,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ShoppingCart, User, LogOut, Menu, X } from "lucide-react";
-import { useState } from "react";
-import { useCartStore } from "@/store/useCartStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Navbar = () => {
 
           {/* Right side - Auth buttons or user menu */}
           <div className="flex items-center gap-x-4">
-            {isAuthenticated && user ? (
+            {isAuthenticated() && user ? (
               <>
                 <Link to="/cart" className="relative">
                   <Button
@@ -89,15 +89,15 @@ const Navbar = () => {
                   </PopoverTrigger>
                   <PopoverContent className="w-48 p-0" align="end">
                     <div className="flex flex-col">
-                      <div className="px-4 py-2 text-sm font-medium text-gray-900">
+                      <div className="hover:bg-accent px-4 py-2 text-sm font-medium text-gray-900">
                         {user.firstName} {user.lastName}
                       </div>
-                      <div className="my-1 border-t border-gray-200"></div>
+                      <div className="border-t border-gray-200"></div>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={handleLogout}
-                        className="justify-start text-black hover:text-gray-900"
+                        className="justify-start rounded-t-none rounded-b py-1 text-black hover:text-gray-900"
                       >
                         <LogOut className="mr-2 h-4 w-4" />
                         Logout

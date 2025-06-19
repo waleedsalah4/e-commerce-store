@@ -3,7 +3,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { Star, Truck, RefreshCcw } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductById } from "@/services/api";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/store/useAuthStore";
 
 import toast from "react-hot-toast";
 import RecentProducts from "@/components/home/RecentProducts";
