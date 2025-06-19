@@ -46,7 +46,7 @@ An e-commerce application built with TypeScript and Vite, featuring simulated au
 - **Frontend Framework**: React 18 with TypeScript
 - **Build Tool**: Vite
 - **Styling**: Tailwind CSS
-- **State Management**: React Hooks (useState, useEffect)
+- **State Management**: Zustand
 - **Data Storage**: localStorage (simulating backend)
 - **Notifications**: React Hot Toast
 - **Icons**: Lucide React
@@ -150,7 +150,7 @@ localStorage Structure:
 
 - ✅ **Component Architecture** - Modular, reusable components
 - ✅ **Custom Hooks** - Business logic separation
-- ✅ **State Management** - Complex state handling with React hooks
+- ✅ **State Management** - Zustand Store - Centralized state management
 - ✅ **Form Handling** - Controlled components with validation
 - ✅ **Local Storage** - Client-side data persistence
 - ✅ **TypeScript** - Type safety and better development experience
